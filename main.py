@@ -1,17 +1,19 @@
-import serial
+import Arduino
 import time
-port = 'COM3'
-BaudRate = 9600
-ser = serial.Serial(port)
+import Database
 
-time.sleep(5)
+db = Database.Database()
 
-stuff = input('Say something to RPI: ')
-while stuff != '//':
-    ser.write(stuff.encode('UTF-8'))
-    stuff = input('Say something to RPI: ')
+cfgdir = 'config/'
+fmaincfg = open(cfgdir + 'main.cfg', 'r')
+
+arduinos = []
+n = int(fmaincfg.readline())
+for i in range(0, n):
+    arduinos.append(Arduino.Arduino(fmaincfg.readline().rstrip()))
 
 while True:
-    str = ser.readline()
-    data = str.split(b' ')
-    print(str)
+    for arduino in arduinos:
+        data = arduino.read()
+        db.insert(data, arduino.name)
+    time.sleep(3)
