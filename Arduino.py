@@ -14,7 +14,7 @@ class Arduino:
         fcfg = open(self.cfgdir + filename)
         self.name = filename[:-4]
         self.port = fcfg.readline().rstrip()
-        self.ser = serial.Serial(self.port, timeout=1)
+        self.ser = serial.Serial(self.port, timeout=2)
         numSensors = int(fcfg.readline().rstrip())
         for i in range(0, numSensors):
             self.sensors.append(Sensor.Sensor(fcfg.readline().rstrip()))
@@ -22,11 +22,15 @@ class Arduino:
     def read(self):
         self.ser.write(1)
         time.sleep(0.2)
-        data = self.ser.read(6)
-        self.ser.flushInput()
+        line = self.ser.readline().rstrip()
+
 
         result = {}
         for sensor in self.sensors:
-            if len(data) == 6:
+            if len(line) > 0:
+                print(line)
+                data = line.split(b' ')
+                print(data)
                 result[sensor.name] = sensor.read(data[sensor.pin])
+
         return result

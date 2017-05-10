@@ -11,7 +11,8 @@ class Sensor:
         specs = str.split(' ')
         [self.type, self.name, self.pin] = [specs[0], specs[1], int(specs[2])]
 
-    def read(self, value):
+    def read(self, data):
+        value = int(data)
         result = {
         'temperature': self.temperature,
         'ph': self.ph,

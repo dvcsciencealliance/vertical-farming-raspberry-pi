@@ -1,18 +1,19 @@
-import pyodbc
-import psycopg2
+import json
 import datetime
-import time
+import psycopg2
+
 
 class Database:
     timeFormat = '%Y-%m-%d %H:%M:%S'
     cur = None
     conn = None
     def __init__(self):
-        fin = open('config/db.cfg')
-        username = fin.readline().rstrip()
-        password = fin.readline().rstrip()
-        host = fin.readline().rstrip()
-        databasename = fin.readline().rstrip()
+        with open('config/db.json') as data_file:    
+            cfg = json.load(data_file)
+        username = cfg['username']
+        password = cfg['password']
+        host = cfg['host']
+        databasename = cfg['databasename']
         self.conn = psycopg2.connect(host = host, user = username, password = password, dbname = databasename)
         self.cur = self.conn.cursor()
 
