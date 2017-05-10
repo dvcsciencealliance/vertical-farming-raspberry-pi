@@ -8,7 +8,7 @@ class Database:
     cur = None
     conn = None
     def __init__(self):
-        with open('config/db.json') as data_file:    
+        with open('config/db.json') as data_file:
             cfg = json.load(data_file)
         username = cfg['username']
         password = cfg['password']

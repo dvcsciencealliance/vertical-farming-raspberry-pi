@@ -1,16 +1,16 @@
-import Arduino
 import time
+import json
+import Arduino
 import Database
 
 db = Database.Database()
 
-cfgdir = 'config/'
-fmaincfg = open(cfgdir + 'main.cfg', 'r')
+with open('config/main.json') as data_file:
+            cfg = json.load(data_file)
 
 arduinos = []
-n = int(fmaincfg.readline())
-for i in range(0, n):
-    arduinos.append(Arduino.Arduino(fmaincfg.readline().rstrip()))
+for arduino in cfg['Arduinos']:
+    arduinos.append(Arduino.Arduino(arduino))
 
 while True:
     for arduino in arduinos:

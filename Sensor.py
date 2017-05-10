@@ -1,5 +1,5 @@
-import struct
 import math
+
 class Sensor:
     # Member variables
     type = ''
@@ -7,9 +7,8 @@ class Sensor:
     pin = ''
 
     # Member functions
-    def __init__(self, str):
-        specs = str.split(' ')
-        [self.type, self.name, self.pin] = [specs[0], specs[1], int(specs[2])]
+    def __init__(self, specs):
+        [self.type, self.name, self.pin] = [specs['type'], specs['name'], int(specs['pin'])]
 
     def read(self, data):
         value = int(data)
