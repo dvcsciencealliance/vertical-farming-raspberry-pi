@@ -15,6 +15,7 @@ class Sensor:
         result = {
         'temperature': self.temperature,
         'ph': self.ph,
+        'conductivity': self.conductivity
         }[self.type](value)
         return result
 
@@ -34,3 +35,11 @@ class Sensor:
         voltage = count / 1023 * 5.0
         ph = intercept + voltage * slope
         return ph
+
+    def conductivity(self, value):
+        count = float(value)
+        slope = 967
+        intercept = 0
+        voltage = count / 1023 * 5.0
+        result = intercept + voltage * slope
+        return result

@@ -2,17 +2,22 @@
     "Arduinos": [
         {
             "name": "Arduino1",
-            "port": "COM4",
+            "port": "/dev/ttyACM0",
             "sensors": [
                 {
                     "name": "thermistor1",
                     "type": "temperature",
-                    "pin": 0
+                    "pin": 2
                 },
                 {
                     "name": "phSensor1",
                     "type": "ph",
                     "pin": 1
+                },
+                {
+                    "name": "conductivity1",
+                    "type": "conductivity",
+                    "pin": 0
                 }
             ]
         }
