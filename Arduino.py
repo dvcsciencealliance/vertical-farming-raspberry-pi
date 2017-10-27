@@ -3,18 +3,14 @@ import serial
 import Sensor
 
 class Arduino:
-    name = ''
-    port = ''
     BaudRate = 9600
-    sensors = []
-    ser = serial.Serial()
 
     def __init__(self, specs):
         self.name = specs['name']
         self.port = specs['port']
         self.ser = serial.Serial(self.port, timeout=2)
-        for sensor in specs['sensors']:
-            self.sensors.append(Sensor.Sensor(sensor))
+        self.sensors = [Sensor.Sensor.makeSensor(s)for s in specs['sensors']]
+
 
     def read(self):
         self.ser.write(1)

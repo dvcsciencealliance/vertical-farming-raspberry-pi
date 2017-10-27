@@ -3,14 +3,17 @@ import json
 import Arduino
 import Database
 
-db = Database.Database()
+with open('config/db.json') as data_file:
+            dbCfg = json.load(data_file)
+db = Database.Database(dbCfg)
 
 with open('config/main.json') as data_file:
             cfg = json.load(data_file)
 
-arduinos = []
-for arduino in cfg['Arduinos']:
-    arduinos.append(Arduino.Arduino(arduino))
+if len(cfg['Arduinos']) > 4:
+    raise ValueError('One RPI supports 4 Arduino at max;' + str(len(cfg['Arduinos'])) + 'is provided') 
+
+arduinos = [Arduino.Arduino(a) for a in cfg['Arduinos']]
 
 while True:
     for arduino in arduinos:

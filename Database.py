@@ -7,9 +7,7 @@ class Database:
     timeFormat = '%Y-%m-%d %H:%M:%S'
     cur = None
     conn = None
-    def __init__(self):
-        with open('config/db.json') as data_file:
-            cfg = json.load(data_file)
+    def __init__(self, cfg):
         username = cfg['username']
         password = cfg['password']
         host = cfg['host']
@@ -18,7 +16,7 @@ class Database:
         self.cur = self.conn.cursor()
 
     def insert(self, data, name):
-        if len(data) < 1:
+        if len(data) <= 0:
             return
 
         now = datetime.datetime.now()

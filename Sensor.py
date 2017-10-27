@@ -11,7 +11,7 @@ class Sensor(ABC):
     def __init__(self, specs):
         self.type, self.name, self.pin = specs['type'], specs['name'], int(specs['pin'])
 
-    def MakeSensor(specs):
+    def makeSensor(specs):
         return {
         'temperature': TemperatureSensor,
         'ph': PhSensor,
