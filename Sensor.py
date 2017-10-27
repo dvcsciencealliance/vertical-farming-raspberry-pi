@@ -1,6 +1,7 @@
 import math
+from abc import ABC, abstractmethod
 
-class Sensor:
+class Sensor(ABC):
     # Member variables
     type = ''
     name = ''
@@ -8,18 +9,21 @@ class Sensor:
 
     # Member functions
     def __init__(self, specs):
-        [self.type, self.name, self.pin] = [specs['type'], specs['name'], int(specs['pin'])]
+        self.type, self.name, self.pin = specs['type'], specs['name'], int(specs['pin'])
 
+    def MakeSensor(specs):
+        return {
+        'temperature': TemperatureSensor,
+        'ph': PhSensor,
+        'conductivity': ConductivitySensor
+        }[specs['type']](specs)
+
+    @abstractmethod
     def read(self, data):
-        value = int(data)
-        result = {
-        'temperature': self.temperature,
-        'ph': self.ph,
-        'conductivity': self.conductivity
-        }[self.type](value)
-        return result
+        pass
 
-    def temperature(self, value):
+class TemperatureSensor(Sensor):
+    def read(self, value):
         count = float(value)
         resistor = 15000.0
         resistance = (resistor * count / (1024.0 - count))
@@ -28,7 +32,8 @@ class Sensor:
         tempInCelsius = tempInKelvin - 273.15
         return tempInCelsius
 
-    def ph(self, value):
+class PhSensor(Sensor):
+    def read(self, value):
         count = float(value)
         slope = -3.838
         intercept = 13.720
@@ -36,6 +41,7 @@ class Sensor:
         ph = intercept + voltage * slope
         return ph
 
+class ConductivitySensor(Sensor):
     def conductivity(self, value):
         count = float(value)
         slope = 967
