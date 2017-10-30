@@ -42,7 +42,7 @@ class PhSensor(Sensor):
         return ph
 
 class ConductivitySensor(Sensor):
-    def conductivity(self, value):
+    def read(self, value):
         count = float(value)
         slope = 967
         intercept = 0
