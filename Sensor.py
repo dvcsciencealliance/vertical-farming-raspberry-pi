@@ -11,15 +11,16 @@ class Sensor(ABC):
     def __init__(self, specs):
         self.type, self.name, self.pin = specs['type'], specs['name'], int(specs['pin'])
 
+    @staticmethod
     def makeSensor(specs):
         return {
-        'temperature': TemperatureSensor,
-        'ph': PhSensor,
-        'conductivity': ConductivitySensor
-        }[specs['type']](specs)
+            'temperature': TemperatureSensor,
+            'ph': PhSensor,
+            'conductivity': ConductivitySensor
+            }[specs['type']](specs)
 
     @abstractmethod
-    def read(self, data):
+    def read(self, value):
         pass
 
 class TemperatureSensor(Sensor):

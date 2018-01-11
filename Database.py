@@ -12,7 +12,7 @@ class Database:
         password = cfg['password']
         host = cfg['host']
         databasename = cfg['databasename']
-        self.conn = psycopg2.connect(host = host, user = username, password = password, dbname = databasename)
+        self.conn = psycopg2.connect(host=host, user=username, password=password, dbname=databasename)
         self.cur = self.conn.cursor()
 
     def insert(self, data, name):

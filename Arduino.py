@@ -1,6 +1,6 @@
 import time
 import serial
-from Sensor import *
+from Sensor import Sensor
 
 class Arduino:
     BaudRate = 9600
