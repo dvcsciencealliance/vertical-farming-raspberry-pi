@@ -1,0 +1,8 @@
+{
+    "token": "XXXX-XXXXXXXX-XXXXXXXXXXXX",
+    "name": "mybot",
+    "notify_channels": 
+    [
+      "test_bot"
+    ]
+  }
