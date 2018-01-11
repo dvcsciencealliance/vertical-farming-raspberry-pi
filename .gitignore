@@ -1,4 +1,4 @@
 config/db.json
 config/main.json
-config/slackbot.json
+config/server.json
 /__pycache__

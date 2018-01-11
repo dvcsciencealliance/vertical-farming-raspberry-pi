@@ -1,6 +1,10 @@
-host = 'http://192.168.0.12:8080'
-name = 'Raspberry Pi'
 import requests
+import json
+
+with open('config/server.json', 'r') as f:
+    cfg = json.load(f)
+host = cfg['host']
+name = cfg['name']
 
 def alert(msg):
     res = requests.post(host + '/alert', data={
